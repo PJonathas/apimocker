@@ -1,0 +1,30 @@
+/catNames:
+  GET:
+    code: 200
+    payload: |
+      [
+        {
+          "id": 1,
+          "name": "mimi"
+        },
+        {
+          "id": 2,
+          "name": "fluffy"    
+        }    
+      ]    
+/dogNames:    
+  GET:    
+    code: 200                                      
+    payload: |                                        
+      [    
+        {    
+          "id": 1,    
+          "name": "rex"    
+        },    
+        {    
+          "id": 2,    
+          "name": "brutus"    
+        }    
+      ]    
+  POST:    
+    code: 201    
