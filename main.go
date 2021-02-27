@@ -10,9 +10,10 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-// Mocked holds the code and payload for the enpoint
+// Mocked holds the code and payload for the endpoint
 type Mocked struct {
 	Code    int
+	Type    string
 	Payload string
 }
 
@@ -44,11 +45,17 @@ func main() {
 	}
 
 	err = http.ListenAndServe(":8000", nil)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func createHandler(endpoints Endpoints) func(http.ResponseWriter, *http.Request) {
 	return func(writer http.ResponseWriter, request *http.Request) {
 		message := []byte(endpoints[request.URL.Path][request.Method].Payload)
+		proxy := endpoints[request.URL.Path][request.Method].Payload
+		mockType := endpoints[request.URL.Path][request.Method].Type
 		code := endpoints[request.URL.Path][request.Method].Code
 
 		// If the method is POST and the payload is empty just echo the
@@ -61,12 +68,29 @@ func createHandler(endpoints Endpoints) func(http.ResponseWriter, *http.Request)
 		}
 
 		writer.WriteHeader(code)
-		_, err := writer.Write(message)
 
-		if err != nil {
-			log.Fatal(err)
+		// check mock type
+		if mockType == "message" {
+			_, err := writer.Write(message)
+
+			if err != nil {
+				log.Fatal(err)
+			}
+		} else {
+			resp, err := http.Get(proxy)
+
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			// read body from response
+			body, err := ioutil.ReadAll(resp.Body)
+
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			writer.Write(body)
 		}
-
 	}
-
 }
