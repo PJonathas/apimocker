@@ -1,6 +1,7 @@
 /catNames:
   GET:
     code: 200
+    type: "mock"
     payload: |
       [
         {
@@ -14,7 +15,8 @@
       ]    
 /dogNames:    
   GET:    
-    code: 200                                      
+    code: 200
+    type: "mock"                                   
     payload: |                                        
       [    
         {    
@@ -28,3 +30,9 @@
       ]    
   POST:    
     code: 201    
+
+/posts:
+  GET:
+    code: 200
+    type: "proxy"
+    payload: "https://jsonplaceholder.typicode.com/posts/"
