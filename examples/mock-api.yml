@@ -11,22 +11,22 @@
         {
           "id": 2,
           "name": "fluffy"    
-        }    
-      ]    
+        }
+      ]
 /dogNames:    
-  GET:    
+  GET:
     code: 200
     type: "mock"                                   
-    payload: |                                        
-      [    
+    payload: |
+      [
         {    
           "id": 1,    
           "name": "rex"    
         },    
-        {    
+        {
           "id": 2,    
           "name": "brutus"    
-        }    
+        }
       ]    
   POST:    
     code: 201    

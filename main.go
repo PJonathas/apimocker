@@ -70,7 +70,7 @@ func createHandler(endpoints Endpoints) func(http.ResponseWriter, *http.Request)
 		writer.WriteHeader(code)
 
 		// check mock type
-		if mockType == "message" {
+		if mockType == "mock" {
 			_, err := writer.Write(message)
 
 			if err != nil {
